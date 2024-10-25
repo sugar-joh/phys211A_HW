@@ -208,7 +208,7 @@ if __name__ == '__main__':
     # N_list = 10 ** np.arange(12, 17, 0.2, dtype=float)
     # plot_logW_vs_logN(N_list, f_lu, lamda_ul, b_list, gamma, approx=approx)
 
-    # # C II 
+    # # C II 1334.5 
     # approx = True
     # f_lu = 0.12780
     # lamda_ul = 1334.5323

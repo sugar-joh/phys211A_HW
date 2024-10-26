@@ -50,7 +50,7 @@ def tau(v, N, f_lu, lamda_ul, b, gamma):
     lamda_ul = lamda_ul * ureg.angstrom
     b = b * ureg.km / ureg.s
     a_0 = np.pi * e ** 2 / (m_e * c) * N * f_lu * lamda_ul 
-    tau_v = a_0 * phi_v
+    tau_v = a_0 * phi_v  # Draine ISM book, 9.8
     tau_v = tau_v.to_base_units()
     assert tau_v.units == ureg.dimensionless, f"Units of tau_v is {tau_v.units}"
     
@@ -58,7 +58,7 @@ def tau(v, N, f_lu, lamda_ul, b, gamma):
 
 def calculate_W(N, f_lu, lamda_ul, b, gamma, approx=False, v_window=300000):
     # input units: N (cm^-2), f_lu (dimensionless), lamda_ul (angstrom), b (km/s), gamma (1/s), v_window (km/s)
-    if approx:
+    if approx: # Draine ISM book, 9.27
         tau_0 = tau(0, N, f_lu, lamda_ul, b, gamma)
         b = b * ureg.km / ureg.s
         gamma = gamma / ureg.s
@@ -88,8 +88,8 @@ def calculate_W(N, f_lu, lamda_ul, b, gamma, approx=False, v_window=300000):
 def plot_logW_vs_logN(N_list, f_lu, lamda_ul, b_list, gamma, approx=False, v_window=300000):
     plt.figure()
 
-    color_indices = np.linspace(0, 1, len(b_list))  # Normalize for colormap
-    colors = colormaps['plasma'](color_indices)  #
+    color_indices = np.linspace(0, 1, len(b_list))
+    colors = colormaps['plasma'](color_indices)
 
     # Loop over each N in N_list
     for i, b in enumerate(b_list):
@@ -141,8 +141,8 @@ def plot_F_vs_lamda_b(N, f_lu, lamda_ul, b_list, gamma, z=0, v_window=200):
     lamda = v * ureg.km / ureg.s / c * lamda_ul * ureg.angstrom + lamda_ul * ureg.angstrom
     lamda = lamda.to('angstrom').magnitude
 
-    color_indices = np.linspace(0, 1, len(b_list))  # Normalize for colormap
-    colors = colormaps['plasma'](color_indices)  #
+    color_indices = np.linspace(0, 1, len(b_list))
+    colors = colormaps['plasma'](color_indices)
 
     for i, b in enumerate(b_list):
         tau_v = tau(v, N, f_lu, lamda_ul, b, gamma)
